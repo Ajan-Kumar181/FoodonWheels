@@ -1,0 +1,16 @@
+{
+  "name": "y",
+  "version": "1.0.1",
+  "description": "my app",
+  "scripts": {
+    "test": "jest",
+    "start":"npx parcel src/index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.14.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
