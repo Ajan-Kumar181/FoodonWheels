@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import ReactDom from 'react-dom/client'
 import {KeyForList} from './Components/Concept'
 import { SwiggyHome } from './Components/SwiggyHome';
@@ -10,6 +10,10 @@ import Error from './Components/Error';
 import Contact from './Components/Contact';
 import RestrauntPage from './Components/RestrauntPage';
 import GitHubUserData from './Components/User'
+import './index.css'
+
+const Grocery = lazy(()=> import('./Components/Grocery'))
+const Details = lazy(()=> import('./Components/Catogories'))
 
 const root = ReactDom.createRoot(document.getElementById('root'));
 const AppComponent = ()=>{
@@ -25,6 +29,8 @@ const AppComponent = ()=>{
                 <Route path='contact' element={<Contact/>}/>
                 <Route path='restraunt/:restId' element={<RestrauntPage/>}/>
                 <Route path='UserData' element={<GitHubUserData/>}/>
+                <Route path='grocery' element={<Suspense fallback ={<h1>Loading ........</h1>}><Grocery/></Suspense>}>
+                </Route>
             </Routes>
         </Router>
 )

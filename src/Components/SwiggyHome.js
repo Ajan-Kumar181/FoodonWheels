@@ -1,26 +1,14 @@
 import { useEffect, useState } from "react";
-import { SWIGGY_DATA_URL ,SWIGGY_IMG_URL } from "../Utils/Constants";
+import { SWIGGY_DATA_URL } from "../Utils/Constants";
 import Axios from 'axios'
-import './SwiggyHome.css'
 import SwiggyHomeShimer from "./SwiggyHomeShimer";
-import { Link } from "react-router-dom";
+import CradLayout,{PromotedCard} from "./RestCard";
 
-const CradLayout = ({restraunt}) =>{
-    return(
-        <Link to={'/restraunt/'+ restraunt.info.id} className="res_card">
-            <img className="res_image" src={SWIGGY_IMG_URL + restraunt.info.cloudinaryImageId}/>
-            <p>{restraunt.info.name}</p>
-            <p>{restraunt.info.avgRating} - {restraunt.info.sla.slaString} delivery</p>
-            <p>{restraunt.info.costForTwo}</p>
-            <p>{restraunt.info.isOpen ? 'open':'closed'}</p>
-            <p>{restraunt.info.locality}</p>
-        </Link>
-    )
-}
 export const SwiggyHome = () =>{
     const [resList , setResList] = useState([]);
     const [search , setSerarch] = useState('');
     const [filteredrest , setFilteredRest] = useState([]);
+    const PromotedCardComp= PromotedCard(CradLayout);
     useEffect(() => {
         fetchdata();
     },[])
@@ -37,13 +25,25 @@ export const SwiggyHome = () =>{
     }
     return  resList.length === 0 ? <SwiggyHomeShimer/>: (
         <>
-        <div className="Search_section">
-            <input value ={search} onChange={(e) => {setSerarch(e.target.value)}} onKeyDown={(e) =>{e.code === "Enter" && searchFunction()}} ></input>
-            <button onClick={searchFunction}>Search</button>
-            <button onClick={TopRatedrest}>Top Rated</button>
+        <div className="flex gap-3.5 justify-center mb-2.5">
+            <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
+                <input
+                    id="price"
+                    name="price"
+                    type="text"
+                    placeholder="search restraunt"
+                    className=" block min-w-xl grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
+                    value ={search} onChange={(e) => {setSerarch(e.target.value)}} onKeyDown={(e) =>{e.code === "Enter" && searchFunction()}}
+                />
+                </div>
+                <button onClick={searchFunction} className="bg-blue-200 px-2.5 rounded-lg py-0.5 hover:cursor-pointer">Search</button>
+                <button onClick={TopRatedrest} className="bg-blue-200 px-2.5 rounded-lg py-0.5 hover:cursor-pointer">Top Rated</button>
         </div>
-        <div className="Swiggy_card_layout">
-            {filteredrest.map(rest => <CradLayout key ={rest.info.id} restraunt = {rest} />)}
+        <div className='flex flex-wrap gap-2.5'>
+            {filteredrest.map(rest =>{
+                return (rest.info.avgRating > 7) ? <PromotedCardComp key ={rest.info.id} restraunt = {rest}/> : <CradLayout key ={rest.info.id} restraunt = {rest} />
+            })
+        }
         </div>
         </>
     )

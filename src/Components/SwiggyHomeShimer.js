@@ -1,10 +1,8 @@
-import './SwiggyHome.css'
-
 export default function(){
     const sum =[1,2,3,4,5,6,7,8,9,10];
     return (
-        <div className='Swiggy_card_layout'>
-            {sum.map((sum) => <div key ={sum} style={{backgroundColor:'#f0f0f0'}} className="res_card"></div>)}
+        <div className='flex flex-wrap gap-2.5'>
+            {sum.map((sum) => <div key ={sum} className="w-[240px] p-4 bg-gray-100 rounded-lg h-64"></div>)}
         </div>
     )
 }
