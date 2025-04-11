@@ -2,10 +2,14 @@ import { ChevronDown, ChevronUp } from "../Utils/Icons";
 import MenuCategoryList from "./MenuCategoryList";
 import { Fragment, useState} from 'react';
 
-function MenuCategory({category}) {
-    const [showCatList,setShowCatList] = useState(false);
+function MenuCategory({category , showCatList , CatList}) {
     const showCatListmethod = ()=>{
-        setShowCatList(!showCatList);
+        if(showCatList){
+            CatList(-1);
+        }
+        else{
+            CatList(1);
+        }
     }
     return ( 
         <Fragment>

@@ -11,6 +11,9 @@ import Contact from './Components/Contact';
 import RestrauntPage from './Components/RestrauntPage';
 import GitHubUserData from './Components/User'
 import './index.css'
+import {Provider} from 'react-redux'
+import store from './Utils/Redux/Store';
+import CartPage from './Components/CartPage';
 
 const Grocery = lazy(()=> import('./Components/Grocery'))
 const Details = lazy(()=> import('./Components/Catogories'))
@@ -18,6 +21,7 @@ const Details = lazy(()=> import('./Components/Catogories'))
 const root = ReactDom.createRoot(document.getElementById('root'));
 const AppComponent = ()=>{
     return (
+        <Provider store ={store}>
         <Router>
         <Header/>
             <Routes>
@@ -29,10 +33,12 @@ const AppComponent = ()=>{
                 <Route path='contact' element={<Contact/>}/>
                 <Route path='restraunt/:restId' element={<RestrauntPage/>}/>
                 <Route path='UserData' element={<GitHubUserData/>}/>
+                <Route path='cart' element={<CartPage/>}/>
                 <Route path='grocery' element={<Suspense fallback ={<h1>Loading ........</h1>}><Grocery/></Suspense>}>
                 </Route>
             </Routes>
         </Router>
+        </Provider>
 )
 }
 // const appRouter = createBrowserRouter([
