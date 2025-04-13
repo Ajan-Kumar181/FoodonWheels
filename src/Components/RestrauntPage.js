@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom";
 import useRestMenu from "../Utils/useRestMenu";
 import MenuCategory from "./MenuCategory";
-import { useState , useEffect } from "react";
-
+import { useState , useContext } from "react";
 function RestrauntPage() {
     const { restId } = useParams();
     const [restInfo , items] = useRestMenu(restId);
@@ -18,7 +17,7 @@ function RestrauntPage() {
             {
                 return (
                 <div key ={item.card.card.categoryId}>
-                    <MenuCategory category = {item.card.card} showCatList = {index === showCatList && true} CatList = {(input)=> input > 0 ? setshowCatList(index) : setshowCatList(null)} />
+                    <MenuCategory restid = {restId} category = {item.card.card} showCatList = {index === showCatList && true} CatList = {(input)=> input > 0 ? setshowCatList(index) : setshowCatList(null)} />
                 </div>
             )})}
         </div>

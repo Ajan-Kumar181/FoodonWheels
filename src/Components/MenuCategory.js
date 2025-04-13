@@ -1,8 +1,8 @@
 import { ChevronDown, ChevronUp } from "../Utils/Icons";
 import MenuCategoryList from "./MenuCategoryList";
-import { Fragment, useState} from 'react';
+import { Fragment} from 'react';
 
-function MenuCategory({category , showCatList , CatList}) {
+function MenuCategory({category , showCatList , CatList , restid}) {
     const showCatListmethod = ()=>{
         if(showCatList){
             CatList(-1);
@@ -18,7 +18,7 @@ function MenuCategory({category , showCatList , CatList}) {
                 <span>{showCatList ? <ChevronUp/> : <ChevronDown/>}</span>
             </div>
             <div>
-                {showCatList && <MenuCategoryList itemCards = {category.itemCards}/>}
+                {showCatList && <MenuCategoryList itemCards = {category.itemCards} restid = {restid} />}
             </div>
         </Fragment>
      );

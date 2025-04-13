@@ -1,14 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { combineSlices, createSlice } from "@reduxjs/toolkit";
 
 const CartSlice = createSlice({
   name: 'cart',
   initialState: {
-    restId: '1234',
+    restId: null,
     cartItems: [],
+    cartPrice :0
   },
   reducers: {
     addItem: (state, action) => {
-      const incomingId = action.payload.card.info.id;
+      console.log(action.payload);
+      if(state.cartItems.length === 0){
+        state.restId = action.payload.restid;
+      }
+      const {item , restid} = action.payload;
+      const incomingId = item.card.info.id;
       const existingItem = state.cartItems.find(item => item.item.card.info.id === incomingId);
       if (existingItem) {
         state.cartItems = state.cartItems.map(item =>
@@ -18,30 +24,34 @@ const CartSlice = createSlice({
         );
       } else {
         state.cartItems.push({
-          item: action.payload,
+          item,
           Quantity: 1,
         });
       }
+      state.cartPrice = state.cartPrice + (item.card.info.price ? item.card.info.price : item.card.info.defaultPrice);
     },
 
     clearCart: (state) => {
       state.cartItems = [];
-      state.restId = '';
+      state.restId = null;
+      state.cartPrice = 0
     },
     removeItem : (state, action)=>{
-        state.cartItems = state.cartItems.filter((item) => item.item.card.info.id !== action.payload);
+        state.cartItems = state.cartItems.filter((item) => item.item.card.info.id !== action.payload.id);
+        state.cartPrice = state.cartPrice - action.payload.totalPrice ;
     },
     increaseItemQunatity: (state, action) => {
-      const id = action.payload;
+      const { id ,price} = action.payload;
       state.cartItems = state.cartItems.map(item =>
         item.item.card.info.id === id
           ? { ...item, Quantity: item.Quantity + 1 }
           : item
       );
+      state.cartPrice = state.cartPrice + price
     },
 
     reduceItemQunatity: (state, action) => {
-      const id = action.payload;
+      const { id ,price} = action.payload;
       state.cartItems = state.cartItems
         .map(item => {
           if (item.item.card.info.id === id) {
@@ -53,6 +63,7 @@ const CartSlice = createSlice({
           return item;
         })
         .filter(item => item !== null);
+        state.cartPrice = state.cartPrice - price;
     },
   }
 });

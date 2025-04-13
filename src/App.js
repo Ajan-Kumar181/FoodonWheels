@@ -14,13 +14,14 @@ import './index.css'
 import {Provider} from 'react-redux'
 import store from './Utils/Redux/Store';
 import CartPage from './Components/CartPage';
-
+import { RestContextProvider } from './Components/useRestContext';
 const Grocery = lazy(()=> import('./Components/Grocery'))
 const Details = lazy(()=> import('./Components/Catogories'))
 
 const root = ReactDom.createRoot(document.getElementById('root'));
 const AppComponent = ()=>{
     return (
+        <RestContextProvider>
         <Provider store ={store}>
         <Router>
         <Header/>
@@ -39,6 +40,7 @@ const AppComponent = ()=>{
             </Routes>
         </Router>
         </Provider>
+        </RestContextProvider>
 )
 }
 // const appRouter = createBrowserRouter([

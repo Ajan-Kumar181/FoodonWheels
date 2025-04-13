@@ -3,13 +3,25 @@ import { useSelector } from "react-redux";
 import { SWIGGY_IMG_URL } from "../Utils/Constants";
 import { CircleFill ,StarFill} from "../Utils/Icons";
 import { useDispatch } from "react-redux";
-import { addItem } from "../Utils/Redux/Cartslice";
-function MenuCategoryList({itemCards}) {
+import { addItem ,clearCart} from "../Utils/Redux/Cartslice";
+function MenuCategoryList({itemCards , restid}) {
     const cartItems = useSelector((store) => store.cart);
     const dispatch = useDispatch();
-    const addItemToCart = (items)=>{
-            dispatch(addItem(items));
-        
+    const addItemToCart = (item)=>{
+        if(cartItems.restId === null || cartItems.restId === restid){
+            dispatch(addItem({
+                restid ,
+                item
+            }))
+        }else{
+            if(confirm('restraunt changed start AFRESH')){
+                dispatch(clearCart());
+                dispatch(addItem({
+                    restid ,
+                    item
+                }))
+            }
+        }; 
         console.log(cartItems.cartItems);
     }
     return (
