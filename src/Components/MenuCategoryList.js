@@ -22,7 +22,6 @@ function MenuCategoryList({itemCards , restid}) {
                 }))
             }
         }; 
-        console.log(cartItems.cartItems);
     }
     return (
         <div className="w-6/12 m-auto">

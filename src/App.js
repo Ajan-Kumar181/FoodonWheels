@@ -15,6 +15,7 @@ import {Provider} from 'react-redux'
 import store from './Utils/Redux/Store';
 import CartPage from './Components/CartPage';
 import { RestContextProvider } from './Components/useRestContext';
+import { Profile } from './Components/Profile';
 const Grocery = lazy(()=> import('./Components/Grocery'))
 const Details = lazy(()=> import('./Components/Catogories'))
 
@@ -35,6 +36,7 @@ const AppComponent = ()=>{
                 <Route path='restraunt/:restId' element={<RestrauntPage/>}/>
                 <Route path='UserData' element={<GitHubUserData/>}/>
                 <Route path='cart' element={<CartPage/>}/>
+                <Route path='profile' element={<Profile/>}/>
                 <Route path='grocery' element={<Suspense fallback ={<h1>Loading ........</h1>}><Grocery/></Suspense>}>
                 </Route>
             </Routes>

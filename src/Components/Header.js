@@ -22,7 +22,8 @@ const Header =()=>{
                 <h4 className='text-lg font-medium'><Link to ='/concepts' >Concepts</Link></h4>
                 <h4 className='text-lg font-medium'><Link to ='/cart'>Cart - {noOfCartItems.length}</Link></h4>
                 <h4 className='text-lg font-medium'><Link to ='/contact' >Contact Us</Link></h4>
-                <h4 className='text-lg font-medium'><Link to ='/grocery' >Grocery</Link></h4>
+                <h4 className='text-lg font-medium'><Link to ='/profile' >Profile</Link></h4>
+                {/* <h4 className='text-lg font-medium'><Link to ='/grocery' >Grocery</Link></h4> */}
                 <button className='bg-blue-300 px-6 py-0.5 rounded-2xl hover: cursor-pointer' onClick={handlelogin}>{user}</button>
             </div>
         </div>
